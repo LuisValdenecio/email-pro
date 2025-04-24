@@ -43,6 +43,8 @@ import {
   UsersIcon
 } from '@heroicons/react/20/solid'
 import { usePathname } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { doLogout } from '../actions'
 
 function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' }) {
   return (
@@ -61,7 +63,7 @@ function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' })
         <DropdownLabel>Share feedback</DropdownLabel>
       </DropdownItem>
       <DropdownDivider />
-      <DropdownItem href="/login">
+      <DropdownItem onClick={async () => await doLogout()}>
         <ArrowRightStartOnRectangleIcon />
         <DropdownLabel>Sign out</DropdownLabel>
       </DropdownItem>
@@ -77,6 +79,7 @@ export function ApplicationLayout({
   children: React.ReactNode
 }) {
   let pathname = usePathname()
+  const { data: session, status } = useSession()
 
   return (
     <SidebarLayout
@@ -86,7 +89,7 @@ export function ApplicationLayout({
           <NavbarSection>
             <Dropdown>
               <DropdownButton as={NavbarItem}>
-                <Avatar src="/users/erica.jpg" square />
+              <Avatar square initials={session?.user?.name?.split("")[0]} className="size-8 bg-zinc-900 text-white dark:bg-white dark:text-black" />
               </DropdownButton>
               <AccountDropdownMenu anchor="bottom end" />
             </Dropdown>
@@ -172,11 +175,13 @@ export function ApplicationLayout({
             <Dropdown>
               <DropdownButton as={SidebarItem}>
                 <span className="flex min-w-0 items-center gap-3">
-                  <Avatar src="/users/erica.jpg" className="size-10" square alt="" />
+                <Avatar square initials={session?.user?.name?.split("")[0]} className="size-8 bg-zinc-900 text-white dark:bg-white dark:text-black" />
                   <span className="min-w-0">
-                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">Erica</span>
+                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
+                      {session?.user?.name}
+                    </span>
                     <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
-                      erica@example.com
+                      {session?.user?.email}
                     </span>
                   </span>
                 </span>

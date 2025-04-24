@@ -1,3 +1,4 @@
+import { doSocialLogin } from '@/app/actions'
 import { Logo } from '@/app/logo'
 import { Button } from '@/components/button'
 import { Checkbox, CheckboxField } from '@/components/checkbox'
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function Login() {
   return (
-    <form action="" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
+    <form action={doSocialLogin} method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
       <Logo className="h-6 text-zinc-950 dark:text-white forced-colors:text-[CanvasText]" />
       <Heading>Sign in to your account</Heading>
       <Field>
@@ -38,6 +39,11 @@ export default function Login() {
       <Button type="submit" className="w-full">
         Login
       </Button>
+      <div className="flex">
+        <Button type="submit" className="w-full" name="action" value="google">
+          Google
+        </Button>
+      </div>
       <Text>
         Don’t have an account?{' '}
         <TextLink href="/register">

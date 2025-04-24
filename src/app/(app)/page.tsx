@@ -4,13 +4,20 @@ import { Heading, Subheading } from '@/components/heading'
 import { Select } from '@/components/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
 import { getRecentOrders } from '@/data'
+import { auth } from '@/auth'
+import { redirect } from 'next/navigation'
 
 export default async function Home() {
   let orders = await getRecentOrders()
+  const session = await auth()
+
+  if (!session?.user) {
+    redirect("/login")
+  }
 
   return (
     <>
-      <Heading>Good afternoon, Erica</Heading>
+      <Heading>Welcome back, {session?.user?.name}</Heading>
       <div className="mt-8 flex items-end justify-between">
         <Subheading>Overview</Subheading>
         <div>
