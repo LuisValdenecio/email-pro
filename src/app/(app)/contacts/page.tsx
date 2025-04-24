@@ -2,11 +2,13 @@ import { Avatar } from '@/components/avatar'
 import { Button } from '@/components/button'
 import { Heading } from '@/components/heading'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
+import { RegisterDialog } from '@/app/(handy-ui)/register-dialog'
 import { getOrders } from '@/data'
 import type { Metadata } from 'next'
 
+
 export const metadata: Metadata = {
-  title: 'Orders',
+  title: 'Contacts',
 }
 
 export default async function Orders() {
@@ -15,8 +17,8 @@ export default async function Orders() {
   return (
     <>
       <div className="flex items-end justify-between gap-4">
-        <Heading>Orders</Heading>
-        <Button className="-my-0.5">Create order</Button>
+        <Heading>Contacts</Heading>
+        <RegisterDialog buttonLabel="Add contact" />
       </div>
       <Table className="mt-8 [--gutter:--spacing(6)] lg:[--gutter:--spacing(10)]">
         <TableHead>
