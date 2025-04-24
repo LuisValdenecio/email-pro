@@ -21,7 +21,7 @@ export function RegisterDialog({ buttonLabel }: RegisterDialogProps) {
       <Dialog open={isOpen} onClose={setIsOpen}>
         <DialogTitle>Add new contact</DialogTitle>
         <DialogDescription>
-          Add a new contact to your address book. You'll be able to send emails to this contact directly from the dashboard.
+          {`Add a new contact to your address book. You'll be able to send emails to this contact directly from the dashboard.`}
         </DialogDescription>
         <DialogBody>
           <Field>
