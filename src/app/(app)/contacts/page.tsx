@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { RegisterDialog } from '@/app/(handy-ui)/register-dialog'
 import { getOrders } from '@/data'
 import type { Metadata } from 'next'
-
+import { contacts } from '@/app/actions/contacts'
 
 export const metadata: Metadata = {
   title: 'Contacts',
@@ -13,6 +13,9 @@ export const metadata: Metadata = {
 
 export default async function Orders() {
   let orders = await getOrders()
+  let all_contacts = await contacts()
+
+  console.log(all_contacts)
 
   return (
     <>
@@ -24,25 +27,25 @@ export default async function Orders() {
         <TableHead>
           <TableRow>
             <TableHeader>Order number</TableHeader>
-            <TableHeader>Purchase date</TableHeader>
-            <TableHeader>Customer</TableHeader>
-            <TableHeader>Event</TableHeader>
-            <TableHeader className="text-right">Amount</TableHeader>
+            <TableHeader>Creation date</TableHeader>
+            <TableHeader>Name</TableHeader>
+            <TableHeader>Email</TableHeader>
+            <TableHeader className="text-right">Messages</TableHeader>
           </TableRow>
         </TableHead>
         <TableBody>
-          {orders.map((order) => (
-            <TableRow key={order.id} href={order.url} title={`Order #${order.id}`}>
-              <TableCell>{order.id}</TableCell>
-              <TableCell className="text-zinc-500">{order.date}</TableCell>
-              <TableCell>{order.customer.name}</TableCell>
+          {all_contacts.map((contact) => (
+            <TableRow key={contact.id} href={contact.id} title={`Order #${contact.id}`}>
+              <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.id}</TableCell>
+              <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.createdAt+""}</TableCell>
+              <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.name}</TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
-                  <Avatar src={order.event.thumbUrl} className="size-6" />
-                  <span>{order.event.name}</span>
+                  <Avatar square initials={contact.name.split("")[0]} className="size-8 bg-zinc-900 text-white dark:bg-white dark:text-black" />
+                  <span className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.email}</span>
                 </div>
               </TableCell>
-              <TableCell className="text-right">US{order.amount.usd}</TableCell>
+              <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400 text-center">500</TableCell>
             </TableRow>
           ))}
         </TableBody>
