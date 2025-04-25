@@ -34,20 +34,26 @@ export default async function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {all_contacts?.map((contact) => (
-            <TableRow key={contact.id} href={contact.id} title={`Order #${contact.id}`}>
-              <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.id}</TableCell>
-              <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.createdAt+""}</TableCell>
-              <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.name}</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Avatar square initials={contact.name.split("")[0]} className="size-8 bg-zinc-900 text-white dark:bg-white dark:text-black" />
-                  <span className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.email}</span>
-                </div>
-              </TableCell>
-              <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400 text-center">500</TableCell>
-            </TableRow>
-          ))}
+          {all_contacts ? (
+            <>
+              {all_contacts?.map((contact) => (
+                <TableRow key={contact.id} href={contact.id} title={`Order #${contact.id}`}>
+                  <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.id}</TableCell>
+                  <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.createdAt+""}</TableCell>
+                  <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.name}</TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <Avatar square initials={contact.name.split("")[0]} className="size-8 bg-zinc-900 text-white dark:bg-white dark:text-black" />
+                      <span className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.email}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400 text-center">500</TableCell>
+                </TableRow>
+              ))}
+            </>
+          ) : (
+            <></>
+          )}
         </TableBody>
       </Table>
     </>
