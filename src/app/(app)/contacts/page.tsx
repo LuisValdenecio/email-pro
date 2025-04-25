@@ -34,7 +34,7 @@ export default async function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {all_contacts.map((contact) => (
+          {all_contacts?.map((contact) => (
             <TableRow key={contact.id} href={contact.id} title={`Order #${contact.id}`}>
               <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.id}</TableCell>
               <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.createdAt+""}</TableCell>
