@@ -8,6 +8,7 @@ export async function contacts() {
         console.log(contacts)
         return contacts
     } catch (error) {
-        console.log(error)
+        console.error('Error fetching contacts:', error);
+        throw new Error('Failed to load contacts');
     }
 }
