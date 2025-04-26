@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Orders() {
-  const data = await fetch(`${process.env.NEXTAUTH_URL}/api/contacts`)
+  const data = await fetch(process.env.NEXTAUTH_URL + '/api/contacts', {method: 'GET'})
   const contacts = await data.json()
   //let orders = await getOrders()
   //let all_contacts = await contacts()
