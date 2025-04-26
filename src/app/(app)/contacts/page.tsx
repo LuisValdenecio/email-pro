@@ -5,17 +5,19 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { RegisterDialog } from '@/app/(handy-ui)/register-dialog'
 import { getOrders } from '@/data'
 import type { Metadata } from 'next'
-import { contacts } from '@/app/actions/contacts'
+//import { contacts } from '@/app/actions/contacts'
 
 export const metadata: Metadata = {
   title: 'Contacts',
 }
 
 export default async function Orders() {
-  let orders = await getOrders()
-  let all_contacts = await contacts()
+  const data = await fetch(`${process.env.NEXTAUTH_URL}/api/contacts`)
+  const contacts = await data.json()
+  //let orders = await getOrders()
+  //let all_contacts = await contacts()
 
-  console.log(all_contacts)
+  console.log(contacts)
 
   return (
     <>
@@ -34,9 +36,9 @@ export default async function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {all_contacts ? (
+          {contacts ? (
             <>
-              {all_contacts?.map((contact) => (
+              {contacts.contacts?.map((contact : any) => (
                 <TableRow key={contact.id} href={contact.id} title={`Order #${contact.id}`}>
                   <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.id}</TableCell>
                   <TableCell className="truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">{contact.createdAt+""}</TableCell>
